@@ -16,18 +16,16 @@ private:
     ScalarConverter();
     ~ScalarConverter();
 
-    static void printChar(unsigned char c);
-    static void printInt(int i);
-    static void printFloat(float f);
-    static void printDouble(double d);
+    static void printChar(const unsigned char c);
+    static void printInt(const int i);
+    static void printFloat(const float f);
+    static void printDouble(const double d);
 
     static void determineAndPrintType(const std::string &literal);
-
+    // static void isFloat(const std::string &str,float &num);
+    static bool forFloat(const std::string &str);
     static bool isInt(const std::string &str,int &num);
     static bool forInt(const std::string &literal);
-    static bool isFloat(const std::string &literal);
-    static bool isDouble(const std::string &literal);
-    static bool isChar(const std::string &literal);
 };
 
 #endif // SCALARCONVERTER_HPP

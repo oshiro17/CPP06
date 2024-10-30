@@ -29,7 +29,7 @@ void ScalarConverter::printDouble(double d) {
 bool ScalarConverter::isInt(const std::string &str,int &num)
 {
     std::istringstream iss(str);
-	iss >> num;
+    iss>>num;
 	if (iss.fail() || !iss.eof()) 
 		return false;
 	return true;
@@ -42,22 +42,58 @@ bool ScalarConverter::forInt(const std::string &literal)
         return false;
     if (num > std::numeric_limits<char>::max() || num < std::numeric_limits<char>::min())
     std::cout << "char: Impossible" << std::endl; 
-    printChar(static_cast<unsigned char>(num));
+    else
+        printChar(static_cast<unsigned char>(num));
     printInt(num);
     printFloat(static_cast<float>(num));
 	printDouble(static_cast<double>(num));
-    return(true);
+    return true;
+}
+
+
+bool ScalarConverter::forFloat(const std::string &str)
+{
+    float num;
+
+    if (str[str.length() - 1] != 'f')
+		return false;
+    std::string str_trim(str);
+    str_trim.erase(str_trim.length() - 1);
+    if (str_trim == "nan" || str_trim == "inf" || str_trim == "-inf" || str_trim == "+inf")
+    {
+        std::cout << "char: Impossible"<<std::endl;
+        std::cout<<"int: Impossible\n"<<std::endl;
+        std::cout << "float: " << str << std::endl;
+        std::cout << "double: " << str_trim << std::endl;
+		return true;
+    }
+    std::istringstream iss(str_trim);
+    if (iss.fail() || !iss.eof()) 
+		return false;
+    iss >> num;
+    if (num > static_cast<float>(std::numeric_limits<char>::max())
+    || num < static_cast<float>(std::numeric_limits<char>::min()))
+        std::cout << "char: Impossible" << std::endl;
+    else
+        printChar(static_cast<unsigned char>(num)); 
+    if (num > static_cast<float>(std::numeric_limits<int>::max())
+    || num < static_cast<float>(std::numeric_limits<int>::min()))
+        std::cout << "int: Impossible" << std::endl;
+    else
+        printInt(static_cast<int>(num));
+    printFloat(num);
+    printDouble(static_cast<double>(num));
+    return true;
 }
 
 void ScalarConverter::determineAndPrintType(const std::string &literal) {
 
-	if (forInt(literal))
+	if (!forInt(literal))
 		return ;
- return;
-	// else if (isFloat(literal))
-	// 	return ;
+	else if (forFloat(literal))
+		return ;
 	// else if (isDouble(literal))
-	// 		return ;
+			return ;
 	// else if (isChar(literal))
 	// 	return ;
     // return;
