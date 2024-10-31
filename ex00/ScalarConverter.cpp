@@ -135,7 +135,6 @@ bool ScalarConverter::forChar(const std::string &str)
     	printDouble(static_cast<double>(c));
         return true;
     }
-    std::cout<<"kjshdfkjs";
     return false;
 }
 
@@ -149,6 +148,8 @@ void ScalarConverter::determineAndPrintType(const std::string &literal) {
 			return ;
 	else if (forChar(literal))
 		return ;
+    else
+        std::cerr << "Error: Invalid input." <<std::endl;
     // return;
 }
 
